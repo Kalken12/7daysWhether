@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ <style>
+body{
+    background-color: rgb(238, 235, 240);
+}
+
+
+#container>div
+{
+     width:400px;
+    margin-top: 50px;
+    background-color: rgb(221, 171, 221);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    font-weight: bold;
+     margin-left: 50px;
+     display: block;
+     margin: auto;
+  
+}
+input
+{
+  width:400px;
+  height: 30px;
+  display:block;
+margin: auto;
+margin-bottom: 20px;
+background-color: rgb(212, 200, 223);
+  border: none;
+  border-radius: 10px;
+ 
+}
+img{
+    width:400px;
+    height: 300px;
+}
+#hrLine{
+    width:300px;
+    height: 2px;
+    background-color:rgb(133, 87, 173);
+    display: block;
+    margin: auto;
+    margin-bottom: 20px;
+}
+h1
+{
+
+    text-align: center;
+    color: rgb(155, 64, 155);
+}
+
+ button
+{
+  width: 100px;
+  height:35px;
+  background-color:rgb(168, 140, 192);
+  color: white;
+display:block;
+margin: auto;
+border-radius: 20px;         
+}
+#search{
+    width:700px;
+    height:250px;
+    border:1px solid    rgb(97, 74, 119);
+    box-shadow:7px 7px  rgb(97, 74, 119);
+    margin: auto;
+    margin-bottom: 20px;
+}
+h3{
+  text-align: center;
+}
+
+
+
+ </style>
+</head>
+<body>
+    <div id="search">
+   <h1>Search Movies, TV Serial or Web Series By Name (Any Language)</h1> 
+ 
+   <div id="hrLine"></div>
+   <input  type="text" id="movie" name="movie" placeholder="Enter Movie Name here....">
+   <button id="btn">Enter </button>
+</div>
+
+   <div id="container">
+
+   </div>
+
+</body>
+<script>
+
+
+
+  document.getElementById("btn").addEventListener("click",movie)
+  
+  
+  function movie()
+  {
+  
+      document.getElementById("container").innerHTML = "";
+      
+      var name = document.getElementById("movie").value;
+  
+  
+  // let name = 'batman';;
+  
+      myPromise(name)
+  
+   
+  
+   async function myPromise(name)
+  {
+  
+      let key = 'f4646442';
+      
+      try{
+  
+          var arr = [];
+  
+  
+          let res = await fetch(`https://www.omdbapi.com/?apikey=${key}&t=${name}`);
+  
+      let data = await res.json();
+  
+  
+      console.log(data);
+  
+  
+  
+         var div =  document.createElement("div");
+  
+         var poster = document.createElement("img");
+         poster.src = data.Poster;
+  
+         var Title =  document.createElement("h3");
+         Title.innerText = `Title: ${data.Title}`;
+  
+  
+         var year =  document.createElement("h3");
+         year.innerText = `Year: ${data.Year}`;
+         
+         var type = document.createElement("h3");
+         type.innerText = `Type: ${data.Type}`;
+  
+         var rating = document.createElement("h3");
+  
+         var rate = parseInt(data.Ratings[0].Value);
+         console.log
+  
+         if(rate>8.5)
+         {
+          rating.innerText = `Rating: ${rate}`;
+          var recomend = document.createElement("p");
+          recomend.innerText = "Recommended";
+          recomend.style =" text-align: center"
+          recomend.style.color = "red";
+  
+          div.append(poster,Title,recomend,year,type,rating)
+          document.getElementById("container").append(div)
+  
+         }
+         else
+         {
+          rating.innerText = `Rating: ${rate}`;
+          div.append(poster,Title,year,type,rating)
+          document.getElementById("container").append(div)
+         }
+         
+  
+          
+  
+  
+      }
+  
+      catch(err)
+      { 
+         console.log('error:',err);
+  
+       var div = document.createElement("div");
+  
+         let img = document.createElement("img")
+         img.src = "https://i.pinimg.com/originals/68/79/69/687969cb54859997824bbd9e19534322.gif";
+  
+         let massage = document.createElement("h1")
+         massage.innerText = "Movie not Found";
+        
+  
+      div.append(img,massage)
+         document.getElementById("container").append(div);
+      }
+      
+  }
+  
+  }
+  
+  </script>
+</html>
