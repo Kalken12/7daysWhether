@@ -1,204 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
- <style>
-body{
-    background-color: rgb(238, 235, 240);
-}
+    <style>
+        #GetData {
+            width: 350px;
+            height: 200px;
+            border: 1px solid rgb(108, 108, 202);
+            display: block;
+            margin: auto;
+            box-shadow: 10px 5px 5px rgb(108, 108, 202);
+            margin-bottom: 20px;
+
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(108, 108, 201);
+
+        }
+
+        #hline {
+            width: 200px;
+            height: 50x;
+            border: 2px solid rgb(149, 149, 214);
+
+            display: block;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-left: 20px;
+            color: rgb(135, 135, 156);
+
+        }
+
+        #city {
+            width: 300px;
+            height: 30px;
+            display: block;
+            margin: auto;
+            background-color: rgb(203, 203, 233);
+            border: none;
 
 
-#container>div
-{
-     width:400px;
-    margin-top: 50px;
-    background-color: rgb(221, 171, 221);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    font-weight: bold;
-     margin-left: 50px;
-     display: block;
-     margin: auto;
-  
-}
-input
-{
-  width:400px;
-  height: 30px;
-  display:block;
-margin: auto;
-margin-bottom: 20px;
-background-color: rgb(212, 200, 223);
-  border: none;
-  border-radius: 10px;
- 
-}
-img{
-    width:400px;
-    height: 300px;
-}
-#hrLine{
-    width:300px;
-    height: 2px;
-    background-color:rgb(133, 87, 173);
-    display: block;
-    margin: auto;
-    margin-bottom: 20px;
-}
-h1
-{
+        }
 
-    text-align: center;
-    color: rgb(155, 64, 155);
-}
-
- button
-{
-  width: 100px;
-  height:35px;
-  background-color:rgb(168, 140, 192);
-  color: white;
-display:block;
-margin: auto;
-border-radius: 20px;         
-}
-#search{
-    width:700px;
-    height:250px;
-    border:1px solid    rgb(97, 74, 119);
-    box-shadow:7px 7px  rgb(97, 74, 119);
-    margin: auto;
-    margin-bottom: 20px;
-}
-h3{
-  text-align: center;
-}
+        #btn {
+            display: block;
+            margin: auto;
+            background-color: rgb(108, 108, 202);
+            width: 200px;
+            height: 30px;
+            border-radius: 5px;
+            color: white
+        }
 
 
 
- </style>
-</head>
-<body>
-    <div id="search">
-   <h1>Search Movies, TV Serial or Web Series By Name (Any Language)</h1> 
- 
-   <div id="hrLine"></div>
-   <input  type="text" id="movie" name="movie" placeholder="Enter Movie Name here....">
-   <button id="btn">Enter </button>
-</div>
-
-   <div id="container">
-
-   </div>
-
-</body>
-<script>
-
-
-
-  document.getElementById("btn").addEventListener("click",movie)
-  
-  
-  function movie()
-  {
-  
-      document.getElementById("container").innerHTML = "";
-      
-      var name = document.getElementById("movie").value;
-  
-  
-  // let name = 'batman';;
-  
-      myPromise(name)
-  
-   
-  
-   async function myPromise(name)
-  {
-  
-      let key = 'f4646442';
-      
-      try{
-  
-          var arr = [];
-  
-  
-          let res = await fetch(`https://www.omdbapi.com/?apikey=${key}&t=${name}`);
-  
-      let data = await res.json();
-  
-  
-      console.log(data);
-  
-  
-  
-         var div =  document.createElement("div");
-  
-         var poster = document.createElement("img");
-         poster.src = data.Poster;
-  
-         var Title =  document.createElement("h3");
-         Title.innerText = `Title: ${data.Title}`;
-  
-  
-         var year =  document.createElement("h3");
-         year.innerText = `Year: ${data.Year}`;
-         
-         var type = document.createElement("h3");
-         type.innerText = `Type: ${data.Type}`;
-  
-         var rating = document.createElement("h3");
-  
-         var rate = parseInt(data.Ratings[0].Value);
-         console.log
-  
-         if(rate>8.5)
-         {
-          rating.innerText = `Rating: ${rate}`;
-          var recomend = document.createElement("p");
-          recomend.innerText = "Recommended";
-          recomend.style =" text-align: center"
-          recomend.style.color = "red";
-  
-          div.append(poster,Title,recomend,year,type,rating)
-          document.getElementById("container").append(div)
-  
-         }
-         else
-         {
-          rating.innerText = `Rating: ${rate}`;
-          div.append(poster,Title,year,type,rating)
-          document.getElementById("container").append(div)
-         }
-         
-  
-          
-  
-  
-      }
-  
-      catch(err)
-      { 
-         console.log('error:',err);
-  
-       var div = document.createElement("div");
-  
-         let img = document.createElement("img")
-         img.src = "https://i.pinimg.com/originals/68/79/69/687969cb54859997824bbd9e19534322.gif";
-  
-         let massage = document.createElement("h1")
-         massage.innerText = "Movie not Found";
+        h4 {
+            color: rgb(140, 140, 172);
+            margin-left: 20px;
+        }
+        #showData{
+            display:grid;
+            grid-template-columns: repeat(7, 200px);
+            grid-template-rows:1,400px ;
+            gap:20px;
+        }
+        #showData>div{
+            border: 1px solid rgb(108, 108, 202);
+            box-shadow: 10px 5px 5px rgb(108, 108, 202);
+            padding: 20px;
         
-  
-      div.append(img,massage)
-         document.getElementById("container").append(div);
-      }
+        }
+        h5{
+           
+        }
+
+       
       
-  }
-  
-  }
-  
-  </script>
+    </style>
+</head>
+
+<body>
+    <div id="heading">
+        <h1>City Climate Application</h1>
+        <div id="hline">
+
+        </div>
+    </div>
+
+    <div id="GetData">
+        <h2> Enter City Name</h2>
+        <input type="text" id="city" placeholder="Enter city Name here..."><br>
+
+        <button id="btn" onclick="getWeather()">Get Weather</button>
+
+    </div>
+    <div id="showData">
+
+
+
+    </div>
+    <!-- <div class="mapouter"><div class="gmap_canvas"><iframe width="600" height="500" id="gmap_canvas" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://fmovies-online.net">fmovies</a><br><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}</style><a href="https://www.embedgooglemap.net"></a><style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style></div></div> -->
+    <!-- src="https://maps.google.com/maps?q=pune&t=&z=13&ie=UTF8&iwloc=&output=embed" -->
+</body>
+
 </html>
+<script>
+    async function getWeather() {
+        document.getElementById("showData").innerHTML = "";
+        try {
+
+            let city = document.getElementById("city").value;
+
+            let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=4c720ebec900cabef71eb3e672d8d8f0&units=metric`)
+            let data = await res.json()
+            console.log("data:", data)
+            var res2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&exclude=hourly,minutely,current&appid=4c720ebec900cabef71eb3e672d8d8f0&units=metric`);
+            var data2 = await res2.json();
+            console.log("date2:", data2)
+            const unixTime = data2.daily[0].dt;
+            const date = new Date(unixTime * 100)
+
+
+
+            for (var i = 0; i < data2.daily.length-1; i++) {
+
+                let box = document.createElement("div");
+                box.setAttribute("clsass","box")
+                let dateBox = document.createElement("h4");
+
+                const unixTime = data2.daily[i].dt;
+                const date = new Date(unixTime * 1000)
+
+                dateBox.innerText = date;
+                console.log(dateBox);
+
+                let minTempBox = document.createElement("h4");
+                minTempBox.innerText = `MinTemp:${data2.daily[i].temp.min}°C`;
+
+                let maxTempBox = document.createElement("h4");
+                maxTempBox.innerText = `MaxTemp:${data2.daily[i].temp.max}°C`
+
+
+                var weather = document.createElement("h4");
+                weather.innerText =`Whether: ${data2.daily[i].weather[0].main}`;
+               
+             
+
+                   
+
+                box.append(dateBox, minTempBox, maxTempBox, weather)
+                document.getElementById("showData").append(box)
+
+            }
+
+
+
+
+        }
+        catch (err) {
+            console.log(err)
+        }
+
+    }
+
+
+
+
+</script>
